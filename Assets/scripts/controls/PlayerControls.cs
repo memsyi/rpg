@@ -4,38 +4,44 @@ using System.Collections;
 public class PlayerControls: MonoBehaviour
 {
 		public float speed;
-		private Vector3 targetposition;
-		private Transform tf;
-
+		private Vector3 targetPosition;
+		private Transform _transform;
 		public Transform target;
 		// Use this for initialization
 		void Start ()
 		{
-				tf = transform;
+				_transform = transform;
 		}
 	
 		// Update is called once per frame
 		void Update ()
 		{
+				// Check if the left mouse button was clicked
 				if (Input.GetKeyDown (KeyCode.Mouse0)) {
+						// Create a Ray object at the mouse position
 						Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+						// Create a RayCastHit property to get the output from RayCast
 						RaycastHit hit;
+						// Get the RayCast hit from the mouse position to the direction it is pointing at
 						if (Physics.Raycast (ray, out hit, 100.0f)) {
 								if (hit.collider.tag == "Targetable") {
 										target = hit.collider.transform;
 										target.renderer.material.color = Color.red;
 								} else {
-										Plane plane = new Plane (Vector3.up, tf.position);
-										float hitdist = 0.0f;
+										// Create a plane at the current position
+										Plane plane = new Plane (Vector3.up, _transform.position);
+										// Get the RayCast hit from the mouse position to the direction it is pointing at
+										float hitdist;
+										// Check if the ray was at a valid position
 										if (plane.Raycast (ray, out hitdist)) {
-												Vector3 target = ray.GetPoint (hitdist);
-												targetposition = ray.GetPoint (hitdist);
-												Quaternion rotation = Quaternion.LookRotation (target - tf.position);
-												transform.rotation = rotation;
+												// Get the point where the ray hit
+												targetPosition = ray.GetPoint (hitdist);
+												// Face the transform at the hit location
+												transform.rotation = Quaternion.LookRotation (targetPosition - _transform.position);
+												;
 										}
 								} 
 						}
-						
 				}
 				if (Input.GetKeyDown (KeyCode.Mouse1)) { 
 						if (target) {
@@ -43,9 +49,8 @@ public class PlayerControls: MonoBehaviour
 								target = null;
 						}
 				}
-				if (Vector3.Distance (tf.position, targetposition) > 0.1f) {
-						Debug.Log (Vector3.Distance (tf.position, targetposition));
-						tf.position = Vector3.MoveTowards (tf.position, targetposition, Time.deltaTime * speed);
+				if (Vector3.Distance (_transform.position, targetPosition) > 0.1f) {
+						_transform.position = Vector3.MoveTowards (_transform.position, targetPosition, Time.deltaTime * speed);
 				}
 		}
 }
