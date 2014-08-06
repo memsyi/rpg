@@ -4,6 +4,7 @@ using System.Collections;
 public class CameraControls : MonoBehaviour
 {
 		public Transform target;
+		public float height = 2.0f;
 		public float distance = 10.0f;
 		public float xSpeed = 250.0f;
 		public float ySpeed = 120.0f;
@@ -21,7 +22,7 @@ public class CameraControls : MonoBehaviour
 		void Start ()
 		{
 				_transform = transform;
-				_transform.position = transform.rotation * new Vector3 (0.0f, 0.0f, -distance) + target.position;
+				_transform.position = transform.rotation * new Vector3 (0.0f, height, -distance) + target.position;
 		}
 		void LateUpdate ()
 		{
@@ -32,12 +33,12 @@ public class CameraControls : MonoBehaviour
 						_y = ClampAngle (_y, yMinLimit, yMaxLimit);
 			
 						Quaternion rotation = Quaternion.Euler (_y, _x, 0);
-						Vector3 position = rotation * new Vector3 (0.0f, 0.0f, -distance) + target.position;
+						Vector3 position = rotation * new Vector3 (0.0f, height, -distance) + target.position;
 			
 						_transform.rotation = rotation;
 						_transform.position = position;
 				} else {
-						_transform.position = transform.rotation * new Vector3 (0.0f, 0.0f, -distance) + target.position;
+						_transform.position = transform.rotation * new Vector3 (0.0f, height, -distance) + target.position;
 				}
 				if (Input.GetAxis ("Mouse ScrollWheel") > 0 && distance > minZoom) {
 						distance -= 0.5f;
