@@ -3,10 +3,12 @@ using System.Collections;
 
 public abstract class Creature
 {
-		public string cname;
-		public float currentHealth;
-		public float currentMana;
-		public float currentStamina;
+		public string cname = "";
+		public float currentHealth = 1 ;
+		public float wounds = 0;
+		public float currentMana = 1;
+		public float currentStamina = 1;
+		public float hunger = 0;
 		public int level = 1;
 
 		public float strength = 1;
@@ -37,6 +39,7 @@ public abstract class Creature
 				this.intelligence = intelligence;
 				this.wisdom = wisdom;
 				this.luck = luck;
+				UpdateStats ();
 		}
 
 		public void UpdateStats ()
@@ -52,55 +55,55 @@ public abstract class Creature
 				resist = (intelligence * 0.6f) + (wisdom * 1.9f) + (luck * 0.5f);
 		}
 
-		float Health {
+		public float Health {
 				get {
 						return this.health;
 				}
 		}
 
-		float Stamina {
+		public float Stamina {
 				get {
 						return this.stamina;
 				}
 		}
 
-		float Mana {
+		public float Mana {
 				get {
 						return this.mana;
 				}
 		}
 
-		float Damagelow {
+		public float Damagelow {
 				get {
 						return this.damagelow;
 				}
 		}
 
-		float Damagehigh {
+		public float Damagehigh {
 				get {
 						return this.damagehigh;
 				}
 		}
 
-		float Critical {
+		public float Critical {
 				get {
 						return this.critical;
 				}
 		}
 
-		float Evasion {
+		public float Evasion {
 				get {
 						return this.evasion;
 				}
 		}
 
-		float Hit {
+		public float Hit {
 				get {
 						return this.hit;
 				}
 		}
 
-		float Resist {
+		public float Resist {
 				get {
 						return this.resist;
 				}

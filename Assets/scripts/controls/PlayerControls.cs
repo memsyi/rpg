@@ -1,19 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(Actor))]
 public class PlayerControls: MonoBehaviour
 {
 		public float speed;
 		public Transform target;
 
-		private Vector3 _targetPosition;
+		private Vector3 _destination;
 		private Transform _transform;
 		private bool _attacking;
-		
+
+		private Actor actor;
+	
 		// Use this for initialization
 		void Start ()
 		{
 				_transform = transform;
+				actor = _transform.GetComponent<Actor> ();
 		}
 	
 		// Update is called once per frame
@@ -32,7 +36,7 @@ public class PlayerControls: MonoBehaviour
 										target.renderer.material.color = Color.red;
 										if (hit.collider.tag == "Enemy") {
 												_attacking = true;
-												_targetPosition = hit.collider.transform.position;
+												_destination = hit.collider.transform.position;
 										} else {
 												_attacking = false;
 										}
@@ -44,9 +48,9 @@ public class PlayerControls: MonoBehaviour
 										// Check if the ray was at a valid position
 										if (plane.Raycast (ray, out hitdist)) {
 												// Get the point where the ray hit
-												_targetPosition = ray.GetPoint (hitdist);
+												_destination = ray.GetPoint (hitdist);
 												// Face the transform at the hit location
-												_transform.rotation = Quaternion.LookRotation (_targetPosition - _transform.position);
+												_transform.rotation = Quaternion.LookRotation (_destination - _transform.position);
 												if (target) {
 														ResetTarget ();
 												}
@@ -57,18 +61,29 @@ public class PlayerControls: MonoBehaviour
 				if (Input.GetMouseButtonDown (1)) { 
 						if (target) {
 								ResetTarget ();
-								_targetPosition = _transform.position;
 						}
 				}
-				if (_transform.position != _targetPosition) {
-						if (Vector3.Distance (_transform.position, _targetPosition) > 0.1f && !_attacking) {
-								MoveToPosition (_targetPosition);
-						} else if (target && _attacking && Vector3.Distance (_transform.position, target.collider.ClosestPointOnBounds (_transform.position)) > 1f) {
-								MoveToPosition (_targetPosition);
+				if (_transform.position != _destination) {
+						if (Vector3.Distance (_transform.position, _destination) > 0.1f && !_attacking) {
+								MoveToPosition (_destination);
+						} else if (target && _attacking && Vector3.Distance (_transform.position, target.collider.ClosestPointOnBounds (_transform.position)) > 1.5f) {
+								MoveToPosition (_destination);
 						} else {
-								_targetPosition = _transform.position;
+								Stop ();
 						}
 				}
+				if (target && _attacking) {
+						if (Vector3.Distance (_transform.position, target.collider.ClosestPointOnBounds (_transform.position)) < 1.5f) {
+								actor.PerformAction (target);
+								_attacking = false;
+								Stop ();
+						}
+				}
+		}
+
+		void Stop ()
+		{
+				_destination = _transform.position;
 		}
 		void ResetTarget ()
 		{
