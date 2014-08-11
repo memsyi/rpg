@@ -32,7 +32,7 @@ public class Movement : MonoBehaviour
 		
 		if (_actor.target && _actor.inCombat) {
 			if (Vector3.Distance (_transform.position, _actor.target.collider.ClosestPointOnBounds (_transform.position)) < 1.5f) {
-				_actor.PerformAction (_actor.target);
+				_actor.PerformAction ();
 				_actor.inCombat = false;
 				Stop ();
 			}

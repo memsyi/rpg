@@ -41,7 +41,7 @@ public class Actor : MonoBehaviour
 		}
 	}
 
-	public void PerformAction (Transform target)
+	public void PerformAction ()
 	{
 		_queue.PerformAction (target);
 	}

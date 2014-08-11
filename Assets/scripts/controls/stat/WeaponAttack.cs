@@ -28,7 +28,7 @@ public class WeaponAttack : Action
 
 	public override void Perform (Transform target)
 	{
-		if (timer <= 0) {
+		if (timer <= 0 && target) {
 			target.GetComponent<Health> ().UpdateHealth (-Random.Range (_damageLow, _damageHigh), 0);
 			GetComponentInChildren<Animator> ().ResetTrigger ("Swing");
 			GetComponentInChildren<Animator> ().SetTrigger ("Swing");

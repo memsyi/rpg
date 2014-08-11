@@ -44,7 +44,7 @@ public class PlayerControls: MonoBehaviour
 					// Get the RayCast hit from the mouse position to the direction it is pointing at
 					float hitdist;
 					// Check if the ray was at a valid position
-					if (plane.Raycast (ray, float out hitdist)) {
+					if (plane.Raycast (ray, out hitdist)) {
 						// Get the point where the ray hit
 						_movement.destination = ray.GetPoint (hitdist);
 						// Face the transform at the hit location
