@@ -34,6 +34,7 @@ public class PlayerControls: MonoBehaviour
 					if (hit.collider.tag == "Enemy") {
 						_actor.inCombat = true;
 						_movement.destination = hit.collider.transform.position;
+						_transform.rotation = Quaternion.LookRotation (hit.collider.transform.position - _transform.position);
 					} else {
 						_actor.inCombat = false;
 					}
@@ -43,7 +44,7 @@ public class PlayerControls: MonoBehaviour
 					// Get the RayCast hit from the mouse position to the direction it is pointing at
 					float hitdist;
 					// Check if the ray was at a valid position
-					if (plane.Raycast (ray, out hitdist)) {
+					if (plane.Raycast (ray, float out hitdist)) {
 						// Get the point where the ray hit
 						_movement.destination = ray.GetPoint (hitdist);
 						// Face the transform at the hit location
