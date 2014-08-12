@@ -47,7 +47,7 @@ public class PlayerControls: MonoBehaviour
 						// Get the point where the ray hit
 						_movement.destination = ray.GetPoint (hitdist);
 						// Face the transform at the hit location
-						_transform.rotation = Quaternion.LookRotation (_movement.destination - _transform.position);
+						//_transform.rotation = Quaternion.LookRotation (_movement.destination - _transform.position);
 						if (_actor.target) {
 							_actor.ResetTarget ();
 						}
