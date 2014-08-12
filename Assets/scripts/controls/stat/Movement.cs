@@ -33,9 +33,11 @@ public class Movement : MonoBehaviour
 	void MoveToPosition ()
 	{
 		if (_transform.position != destination) {
-			if ((Vector3.Distance (_transform.position, destination) > 0.1f && !_actor.inCombat) || 
+			
+			if ((Vector3.Distance (_transform.position, destination) > 0.1f && !_actor.inCombat && !_actor.target) || 
 				(_actor.target && _actor.inCombat && Vector3.Distance (_transform.position, _actor.target.collider.ClosestPointOnBounds (_transform.position)) > 1.5f)) {
 				_transform.position = Vector3.MoveTowards (_transform.position, destination, Time.deltaTime * speed);
+				_transform.rotation = Quaternion.LookRotation (destination - _transform.position);
 			} else {
 				Stop ();
 			}

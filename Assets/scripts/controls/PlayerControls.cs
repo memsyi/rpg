@@ -34,7 +34,6 @@ public class PlayerControls: MonoBehaviour
 					if (hit.collider.tag == "Enemy") {
 						_actor.inCombat = true;
 						_movement.destination = hit.collider.transform.position;
-						_transform.rotation = Quaternion.LookRotation (hit.collider.transform.position - _transform.position);
 					} else {
 						_actor.inCombat = false;
 					}
