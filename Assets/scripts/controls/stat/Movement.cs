@@ -15,6 +15,7 @@ public class Movement : MonoBehaviour
 	{
 		_transform = transform;
 		_actor = GetComponent<Actor> ();
+		Stop ();
 	}
 	
 	// Update is called once per frame

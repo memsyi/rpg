@@ -2,9 +2,8 @@
 using System.Collections;
 
 [RequireComponent(typeof(ActionQueue))]
-public class Actor : MonoBehaviour
+public class Actor : WorldObject
 {
-
 	public string cname = "";
 	public int level = 1;
 	
@@ -19,13 +18,13 @@ public class Actor : MonoBehaviour
 	public Transform target;
 	public bool inCombat = false;
 
-	private Creature _creature;
-	private ActionQueue _queue;
-		
+	protected Creature _creature;
+	protected ActionQueue _queue;
+	
 	// Use this for initialization
 	void Awake ()
 	{
-		_creature = new PlayerCreature (cname, level, strength, constitution, dexterity, agility, intelligence, wisdom, luck);
+		_creature = new MonsterCreature (cname, level, strength, constitution, dexterity, agility, intelligence, wisdom, luck);
 		_queue = GetComponent<ActionQueue> ();
 	}
 	

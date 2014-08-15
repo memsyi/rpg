@@ -42,7 +42,7 @@ public abstract class Creature
 		UpdateStats ();
 	}
 
-	public void UpdateStats ()
+	void UpdateStats ()
 	{
 		health = (strength * 0.3f) + (constitution * 1.2f);
 		mana = (intelligence * 2.2f) + (wisdom * 1.6f);
