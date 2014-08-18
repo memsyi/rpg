@@ -17,5 +17,8 @@ public class Health : MonoBehaviour
 		if (_creature.currentHealth > _creature.Health) {
 			_creature.currentHealth = _creature.Health;
 		}
+		if (_creature.currentHealth <= 0) {
+			Destroy (this.gameObject);
+		}
 	}
 }

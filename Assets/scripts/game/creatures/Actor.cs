@@ -27,12 +27,6 @@ public class Actor : WorldObject
 		_creature = new MonsterCreature (cname, level, strength, constitution, dexterity, agility, intelligence, wisdom, luck);
 		_queue = GetComponent<ActionQueue> ();
 	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-
-	}
 
 	public Creature creature {
 		get {

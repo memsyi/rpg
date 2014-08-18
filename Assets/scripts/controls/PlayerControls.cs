@@ -6,14 +6,14 @@ using System.Collections;
 public class PlayerControls: MonoBehaviour
 {
 	private Transform _transform;
-	private PlayerActor _actor;
+	private static PlayerActor _actor;
 	private Movement _movement;
 	
 	// Use this for initialization
 	void Start ()
 	{
 		_transform = transform;
-		_actor = GetComponent<PlayerActor> ();
+		_actor = PlayerActor.Instance;
 		_movement = GetComponent<Movement> ();
 	}
 	
@@ -58,9 +58,7 @@ public class PlayerControls: MonoBehaviour
 		}
 		// Open a menu
 		if (Input.GetMouseButtonDown (1)) { 
-			//if (_actor.target) {
-			//_actor.ResetTarget ();
-			//}
+			
 		}
 	}
 }

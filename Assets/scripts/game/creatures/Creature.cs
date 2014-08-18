@@ -40,19 +40,36 @@ public abstract class Creature
 		this.wisdom = wisdom;
 		this.luck = luck;
 		UpdateStats ();
+		currentHealth = health;
+		currentMana = mana;
+		currentStamina = stamina;
 	}
 
+	void UpdateStats (float str, float con, float dex, float agi, float inti, float wis, float luk)
+	{
+		health = ((strength + str) * 0.3f) + ((constitution + con) * 1.2f);
+		if (currentHealth > health) {
+			currentHealth = health;
+		}
+		mana = ((intelligence + inti) * 2.2f) + ((wisdom + wis) * 1.6f);
+		if (currentMana > mana) {
+			currentMana = mana;
+		}
+		stamina = ((strength + str) * 0.2f) + ((constitution + con) * 1.8f);
+		if (currentStamina > stamina) {
+			currentStamina = stamina;
+		}
+		damagelow = ((strength + str) * 0.8f) + ((dexterity + dex) * 1.8f);
+		damagehigh = ((strength + str) * 1.8f) + ((dexterity + dex) * 0.4f);
+		critical = ((dexterity + dex) * 0.6f) + ((agility + agi) * 0.6f) + (luck + luk);
+		evasion = ((dexterity + dex) * 0.4f) + ((agility + agi) * 0.9f) + ((luck + luk) * 0.5f);
+		hit = ((dexterity + dex) * 1.6f) + ((agility + agi) * 0.6f) + ((luck + luk) * 0.5f);
+		resist = ((intelligence + inti) * 0.6f) + ((wisdom + wis) * 1.9f) + ((luck + luk) * 0.5f);
+	}
+	
 	void UpdateStats ()
 	{
-		health = (strength * 0.3f) + (constitution * 1.2f);
-		mana = (intelligence * 2.2f) + (wisdom * 1.6f);
-		stamina = (strength * 0.2f) + (constitution * 1.8f);
-		damagelow = (strength * 0.8f) + (dexterity * 1.8f);
-		damagehigh = (strength * 1.8f) + (dexterity * 0.4f);
-		critical = (dexterity * 0.6f) + (agility * 0.6f) + (luck);
-		evasion = (dexterity * 0.4f) + (agility * 0.9f) + (luck * 0.5f);
-		hit = (dexterity * 1.6f) + (agility * 0.6f) + (luck * 0.3f);
-		resist = (intelligence * 0.6f) + (wisdom * 1.9f) + (luck * 0.5f);
+		UpdateStats (0, 0, 0, 0, 0, 0, 0);
 	}
 
 	public float Health {
